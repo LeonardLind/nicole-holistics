@@ -11,11 +11,12 @@ const ActionBanner = () => {
 			/>
 			<div className="flex flex-col items-center justify-center gap-5 lg:px-0 px-8">
 				<span className="text-white text-center font-Fira font-bold text-[70px] z-[100] max-w-[800px]">
-					Are You Ready To Start Your Next Project?
+					Are You Ready To Start Your Journey?
 				</span>
 				<Button
 					whiteButton
 					className="z-[100]"
+					to="/contact"
 				>
 					Get In Touch
 				</Button>

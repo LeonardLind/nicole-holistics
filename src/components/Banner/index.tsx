@@ -16,13 +16,13 @@ const Banner = () => {
 					className="z-[100]"
 				/>
 				<div className="flex flex-col gap-8">
-					<span className="text-white max-w-[1200px] font-Urbanist text-[45px] font-semibold z-[100]">
-						At the core of our practice is the idea that cities are the incubators of our
-						greatest achievements, and the best hope for a sustainable future.
-					</span>
-					<span className="text-white font-Fira text-lg font-medium z-[100]">
-						John Geoffrey | Hexagon Builders inc., USA
-					</span>
+					<span className="text-white max-w-[1200px] font-Urbanist  lg:text-[45px] md:text-[36px] sm:text-[28px] text-[24px] font-semibold z-[100]">
+        				Thank you, Nicole, for guiding me on my journey of self-discovery. Your easy rapport, safe space,
+        				and attentive listening helped me gain clarity and embrace vulnerability. You made me feel valued and understood. It’s a joy to work with you.
+     				 </span>
+     				 <span className="text-white font-Fira text-lg lg:text-lg md:text-base sm:text-sm font-medium z-[100]">
+      					WITH RESPECT, KAMI
+     				 </span>
 				</div>
 			</div>
 		</div>

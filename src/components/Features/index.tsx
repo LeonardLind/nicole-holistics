@@ -2,26 +2,27 @@ import House from "../../assets/images/house.svg";
 import Design from "../../assets/images/design.svg";
 import Maintenance from "../../assets/images/maintenance.svg";
 import { CaretForwardOutline } from "react-ionicons";
+import { Link } from 'react-router-dom';
 
 const Features = () => {
 	const features = [
 		{
 			icon: House,
-			title: "Building new homes",
+			title: "Body",
 			description:
-				"Vehicula at eget a arcu neque, ultricies liquet tempus vel amet eget egestas arcu non.",
+				"Physical and mental health are linked. Prioritize exercise, nutrition, rest, and self-image for balance.",
 		},
 		{
 			icon: Design,
-			title: "Designing spaces",
+			title: "Mind",
 			description:
-				"Vehicula at eget a arcu neque, ultricies liquet tempus vel amet eget egestas arcu non.",
+				"Mindfulness, cognitive fitness, and social connections help us find joy, resilience, and fulfillment.",
 		},
 		{
 			icon: Maintenance,
-			title: "Road maintenance",
+			title: "Soul",
 			description:
-				"Vehicula at eget a arcu neque, ultricies liquet tempus vel amet eget egestas arcu non.",
+				"Connecting with our inner selves, gratitude, purpose, and stillness leads to joy and fulfillment.",
 		},
 	];
 	return (
@@ -42,12 +43,12 @@ const Features = () => {
 					<p className="text-lightText font-Urbanist text-lg max-w-[400px] lg:text-left text-center">
 						{feature.description}
 					</p>
-					<div className="flex items-center gap-2 cursor-pointer mt-2">
+					<Link to="/about" className="flex items-center gap-2 cursor-pointer mt-2">
 						<span className="font-Urbanist font-semibold text-lg text-secondary">
 							View Details
 						</span>
-						<CaretForwardOutline cssClasses={"!fill-secondary !text-secondary"} />
-					</div>
+					 <CaretForwardOutline cssClasses={"!fill-secondary !text-secondary"} />
+					</Link>
 				</div>
 			))}
 		</div>

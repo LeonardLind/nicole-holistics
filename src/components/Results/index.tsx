@@ -1,7 +1,6 @@
 const Results = () => {
 	const items = [
 		{ title: "Projects done", count: 780 },
-		{ title: "Awards", count: 28 },
 		{ title: "Total members", count: 127 },
 		{ title: "Happy customers", count: 625 },
 	];
