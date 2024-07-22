@@ -10,7 +10,7 @@ import Contact from './pages/contact';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename='/nicole-holistics/'>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
