@@ -1,20 +1,26 @@
 import { Call, Location, Mail, LogoDiscord, LogoFacebook, LogoInstagram, LogoLinkedin } from 'react-ionicons';
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import logo from '../assets/images/logo.png';
 
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     message: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Form submitted:', formData);
@@ -25,7 +31,9 @@ const Contact = () => {
       <div className="flex flex-col items-center text-center mb-12">
         <img src={logo} alt="logo" className="w-[160px] mb-4" />
         <h1 className="text-3xl font-bold text-primary">Get in Touch</h1>
-        <p className="text-lg text-secondary max-w-[600px]">We'd love to hear from you. Whether you have a question, feedback, or just want to say hello, feel free to reach out to us using the form below.</p>
+        <p className="text-lg text-secondary max-w-[600px]">
+          We'd love to hear from you. Whether you have a question, feedback, or just want to say hello, feel free to reach out to us using the form below.
+        </p>
       </div>
       <div className="w-full lg:w-2/3 xl:w-1/2 bg-white p-8 rounded-lg shadow-lg">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -53,10 +61,12 @@ const Contact = () => {
             value={formData.message}
             onChange={handleChange}
             className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-            rows="5"
+            rows={5}
             required
           ></textarea>
-          <button type="submit" className="bg-primary text-white p-3 rounded-lg font-semibold hover:bg-primary-dark">Send Message</button>
+          <button type="submit" className="bg-primary text-white p-3 rounded-lg font-semibold hover:bg-primary-dark">
+            Send Message
+          </button>
         </form>
       </div>
       <div className="w-full lg:w-2/3 xl:w-1/2 flex flex-col lg:flex-row items-center justify-between gap-6 mt-12">
