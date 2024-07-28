@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   LogoDiscord,
@@ -5,11 +6,13 @@ import {
   LogoInstagram,
   LogoLinkedin,
   MenuOutline,
+  CloseOutline
 } from 'react-ionicons';
 import logo from '../../assets/images/logo.png';
 
 const Navbar = () => {
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navItems = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
@@ -18,42 +21,71 @@ const Navbar = () => {
     { title: 'Contact', path: '/contact' },
   ];
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLinkClick = () => {
+    // Delay the menu close to allow fade out animation to complete
+    setTimeout(() => setIsMenuOpen(false), 500); // Match delay to fadeOut duration
+  };
+
   return (
-    <div className="w-full lg:px-12 p-5 lg:h-24 h-20 border-b border-navBorder flex items-center justify-between">
+    <nav className="w-full lg:px-12 px-5 py-5 lg:py-0 lg:h-24 h-20 border-b border-gray-300 flex items-center justify-between relative bg-white">
       <Link to="/">
-        <img
-          src={logo}
-          alt="logo"
-          className="cursor-pointer"
-        />
+        <img src={logo} alt="logo" className="cursor-pointer h-10 lg:h-auto" />
       </Link>
-      <div className="lg:flex hidden items-center gap-8">
+      <div className="hidden lg:flex items-center gap-8">
         {navItems.map((item) => (
           <Link
             key={item.title}
             to={item.path}
             className={`${
               location.pathname === item.path ? 'text-primary' : 'text-secondary'
-            } font-Urbanist font-semibold text-lg cursor-pointer`}
+            } font-urbanist font-semibold text-lg cursor-pointer`}
           >
             {item.title}
           </Link>
         ))}
       </div>
-      <div className="lg:flex hidden items-center gap-7">
-        <LogoFacebook cssClasses={"!fill-secondary !text-secondary cursor-pointer"} />
-        <LogoInstagram cssClasses={"!fill-secondary !text-secondary cursor-pointer"} />
-        <LogoLinkedin cssClasses={"!fill-secondary !text-secondary cursor-pointer"} />
-        <LogoDiscord cssClasses={"!fill-secondary !text-secondary cursor-pointer"} />
+      <div className="hidden lg:flex items-center gap-7">
+        <LogoFacebook cssClasses="text-secondary cursor-pointer" />
+        <LogoInstagram cssClasses="text-secondary cursor-pointer" />
+        <LogoLinkedin cssClasses="text-secondary cursor-pointer" />
+        <LogoDiscord cssClasses="text-secondary cursor-pointer" />
       </div>
-      <div className="cursor-pointer lg:hidden block">
-        <MenuOutline
-          cssClasses={"!fill-secondary !text-secondary"}
-          width={"32px"}
-          height={"32px"}
-        />
+      <div className="lg:hidden block cursor-pointer z-50" onClick={toggleMenu}>
+        {isMenuOpen ? (
+          <CloseOutline width="32px" height="32px" />
+        ) : (
+          <MenuOutline width="32px" height="32px" />
+        )}
       </div>
-    </div>
+      <div
+        className={`fixed inset-0 bg-white flex flex-col items-center justify-center gap-4 p-5 z-40 transition-opacity duration-300 ease-out ${
+          isMenuOpen ? 'animate-fadeIn' : 'animate-fadeOut'
+        }`}
+      >
+        {navItems.map((item) => (
+          <Link
+            key={item.title}
+            to={item.path}
+            onClick={handleLinkClick}
+            className={`${
+              location.pathname === item.path ? 'text-primary' : 'text-secondary'
+            } font-urbanist font-semibold text-xl cursor-pointer`}
+          >
+            {item.title}
+          </Link>
+        ))}
+        <div className="flex items-center gap-7 mt-4">
+          <LogoFacebook cssClasses="text-secondary cursor-pointer" />
+          <LogoInstagram cssClasses="text-secondary cursor-pointer" />
+          <LogoLinkedin cssClasses="text-secondary cursor-pointer" />
+          <LogoDiscord cssClasses="text-secondary cursor-pointer" />
+        </div>
+      </div>
+    </nav>
   );
 };
 
