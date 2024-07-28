@@ -6,13 +6,15 @@ import {
   LogoInstagram,
   LogoLinkedin,
   MenuOutline,
-  CloseOutline
+  CloseOutline,
 } from 'react-ionicons';
 import logo from '../../assets/images/logo.png';
 
 const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
   const navItems = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
@@ -22,12 +24,18 @@ const Navbar = () => {
   ];
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+      setTimeout(() => setIsMenuVisible(false), 300); // Match with fadeOut duration
+    } else {
+      setIsMenuVisible(true);
+      setTimeout(() => setIsMenuOpen(true), 0); // Delay to trigger animation
+    }
   };
 
   const handleLinkClick = () => {
-    // Delay the menu close to allow fade out animation to complete
-    setTimeout(() => setIsMenuOpen(false), 500); // Match delay to fadeOut duration
+    setIsMenuOpen(false);
+    setTimeout(() => setIsMenuVisible(false), 300); // Match with fadeOut duration
   };
 
   return (
@@ -61,30 +69,33 @@ const Navbar = () => {
           <MenuOutline width="32px" height="32px" />
         )}
       </div>
-      <div
-        className={`fixed inset-0 bg-white flex flex-col items-center justify-center gap-4 p-5 z-40 transition-opacity duration-300 ease-out ${
-          isMenuOpen ? 'animate-fadeIn' : 'animate-fadeOut'
-        }`}
-      >
-        {navItems.map((item) => (
-          <Link
-            key={item.title}
-            to={item.path}
-            onClick={handleLinkClick}
-            className={`${
-              location.pathname === item.path ? 'text-primary' : 'text-secondary'
-            } font-urbanist font-semibold text-xl cursor-pointer`}
-          >
-            {item.title}
-          </Link>
-        ))}
-        <div className="flex items-center gap-7 mt-4">
-          <LogoFacebook cssClasses="text-secondary cursor-pointer" />
-          <LogoInstagram cssClasses="text-secondary cursor-pointer" />
-          <LogoLinkedin cssClasses="text-secondary cursor-pointer" />
-          <LogoDiscord cssClasses="text-secondary cursor-pointer" />
+
+      {isMenuVisible && (
+        <div
+          className={`fixed inset-0 bg-white flex flex-col items-center justify-center gap-4 p-5 z-40 transition-opacity duration-300 ease-out ${
+            isMenuOpen ? 'animate-fadeIn' : 'animate-fadeOut'
+          }`}
+        >
+          {navItems.map((item) => (
+            <Link
+              key={item.title}
+              to={item.path}
+              onClick={handleLinkClick}
+              className={`${
+                location.pathname === item.path ? 'text-primary' : 'text-secondary'
+              } font-urbanist font-semibold text-xl cursor-pointer`}
+            >
+              {item.title}
+            </Link>
+          ))}
+          <div className="flex items-center gap-7 mt-4">
+            <LogoFacebook cssClasses="text-secondary cursor-pointer" />
+            <LogoInstagram cssClasses="text-secondary cursor-pointer" />
+            <LogoLinkedin cssClasses="text-secondary cursor-pointer" />
+            <LogoDiscord cssClasses="text-secondary cursor-pointer" />
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };
